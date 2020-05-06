@@ -10,6 +10,7 @@ function CheckRepeats(CurrentIndex, ArrayOfIndices) {
 }
 
 function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
+    
     /* Recursively Steps through a boggle board to solve it for the given word.
        The word must be at least 3 letters long as per the rules of boggle. 
        There can also be no repeated spaces used. Using those rules, and
@@ -17,15 +18,19 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
        of the word, it calls itself in each legal horizontal, vertical, and
        diagonal direction, and with the word minus the the first letter. The base
        case is when the word given to the function is empty, meaning all of the letters
-       have been found on the board in a sequence with no repeats. */
+       have been found on the board in a sequence with no repeats. The recursion will
+       eventually assign either true or undefined to retValue, which is the variable
+       the function ultimately returns. If assigned undefined, it will return be interpreted
+       as false, which is intentional.*/
     
     //base case: Each letter in the word has been found,
     if(Word.length === 0) {
         return true;
     }
     
-
-    if(Word.charAt(0) === FourbyFourMat[CurrIndex.y][CurrIndex.x]) {
+    // Assign a variable to catch the result of the recursion
+    var retValue = 
+        if(Word.charAt(0) === FourbyFourMat[CurrIndex.y][CurrIndex.x]) {
         
         // 8 statements for each possible step, checks for legality of move,
         // then check for repeats,
@@ -41,7 +46,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
 
         //NortWest Step
-        if((0 <= (CurrIndex.y - 1) <= 3) && (0 <= (CurrIndex.x - 1) <= 3)) {
+            if((0 <= (CurrIndex.y - 1) <= 3) && (0 <= (CurrIndex.x - 1) <= 3)) {
                 var NewIndex = [(CurrIndex.y -1), (CurrIndex.x - 1)];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
@@ -50,7 +55,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
            
         //North Step
-        if((0 <= (CurrIndex.y - 1) <= 3) && (0 <= CurrIndex.x <= 3)) {
+            if((0 <= (CurrIndex.y - 1) <= 3) && (0 <= CurrIndex.x <= 3)) {
                 var NewIndex = [(CurrIndex.y -1), CurrIndex.x];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
@@ -59,7 +64,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
            
         //NorthEast Step
-        if((0 <= (CurrIndex.y - 1) <= 3) && (0 <= (CurrIndex.x + 1) <= 3)) {
+            if((0 <= (CurrIndex.y - 1) <= 3) && (0 <= (CurrIndex.x + 1) <= 3)) {
                 var NewIndex = [(CurrIndex.y -1), (CurrIndex.x + 1)];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
@@ -68,7 +73,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
            
         //East Step
-        if((0 <= CurrIndex.y <= 3) && (0 <= (CurrIndex.x + 1) <= 3)) {
+            if((0 <= CurrIndex.y <= 3) && (0 <= (CurrIndex.x + 1) <= 3)) {
                 var NewIndex = [CurrIndex.y, (CurrIndex.x + 1)];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
@@ -77,7 +82,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
            
         //SouthEast Step
-        if((0 <= (CurrIndex.y + 1) <= 3) && (0 <= (CurrIndex.x + 1) <= 3)) {
+            if((0 <= (CurrIndex.y + 1) <= 3) && (0 <= (CurrIndex.x + 1) <= 3)) {
                 var NewIndex = [(CurrIndex.y + 1), (CurrIndex.x + 1)];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
@@ -86,7 +91,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
            
         //South Step
-        if((0 <= (CurrIndex.y + 1) <= 3) && (0 <= CurrIndex.x <= 3)) {
+            if((0 <= (CurrIndex.y + 1) <= 3) && (0 <= CurrIndex.x <= 3)) {
                 var NewIndex = [(CurrIndex.y + 1), CurrIndex.x];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
@@ -95,16 +100,17 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
             }
         
         //SouthWest Step
-        if((0 <= (CurrIndex.y + 1) <= 3) && (0 <= (CurrIndex.x - 1) <= 3)) {
+            if((0 <= (CurrIndex.y + 1) <= 3) && (0 <= (CurrIndex.x - 1) <= 3)) {
                 var NewIndex = [(CurrIndex.y + 1), (CurrIndex.x - 1)];
                 if(!CheckRepeats(NewIndex, PrevIndices)) {
                     var NewPrevIndices = PrevIndices.push(CurrIndex);
                     RecursiveBoggleStep(Word.substr(1, (Word.length - 1)), NewIndex, NewPrevIndices);
                 }
             }
-    } else {
-        return;
-    }
+        } else {
+            return;
+        }
+    return retValue;
 }
 
 function FindGivenWord(Word, FourbyForMat) {

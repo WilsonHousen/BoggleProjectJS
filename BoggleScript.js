@@ -23,7 +23,7 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
        the function ultimately returns. If assigned undefined, it will return be interpreted
        as false, which is intentional.*/
     
-    //base case: Each letter in the word has been found,
+    //base case: Each letter in the word has been found
     if(Word.length === 0) {
         return true;
     }
@@ -113,13 +113,13 @@ function RecursiveBoggleStep (Word, FourbyFourMat, CurrIndex, PrevIndices) {
     return retValue;
 }
 
-function FindGivenWord(Word, FourbyForMat) {
+function FindGivenWord(Word, FourbyFourMat) {
     for(y = 0; y < 4; y++) {
         for(x = 0; x < 4; x++) {
             if (FourbyFourMat[y][x] === word.charAt[0]) {
                 // if RecursiveBoggleStep finds the word it'll return true,
                 // Meaning FindGivenWord should also
-                if (RecursiveBoggleStep(Word.substr(1, (Word.length - 1)), FourbyForMat, [y, x], [])) {
+                if (RecursiveBoggleStep(Word.substr(1, (Word.length - 1)), FourbyFourMat, [y, x], [])) {
                     return true;
                 }
             }
@@ -143,3 +143,25 @@ function UltimateBoggleSolver(FourbyFourMat, ListofWords) {
     }
     console.log(FoundWordsArray);
 }
+
+/* TEST SUITE to validate each function */
+
+// CheckRepeats Tests
+//      should be false
+CheckRepeats([0,0], []);
+//      should be true
+CheckRepeats([1,1], [[1,1]]);
+//      should be true
+CheckRepeats([1,2] [[1,0], [1,2], [0,0]]);
+
+// RecursiveBoggleStep Tests
+//          should return false
+RecursiveBoggleStep('links', [[r, r, r, r] , [r, r, r, r] , [r, r, r, r] , [r, r, r, r]], [2, 3], []);
+//          should return true
+RecursiveBoggleStep('links', [[r, s, k, r] , [r, r, n, r] , [r, r, i, l] , [r, r, r, r]], [2, 3], []);
+
+// FindGivenWord Tests
+//     should return true
+FindGivenWord('links', [[r, r, r, r] , [r, r, r, r] , [r, r, r, r] , [r, r, r, r]]);
+//     should return false
+FindGivenWord('links', [[r, r, r, r] , [r, r, r, r] , [r, r, r, r] , [r, r, r, r]]);

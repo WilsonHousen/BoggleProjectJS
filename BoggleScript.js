@@ -114,6 +114,9 @@ var RecursiveBoggleStep = function(Word, FourbyFourMat, CurrIndex, PrevIndices) 
     if(Word.length === 0) {
         console.log('Hit the base case');
         return true;
+    }
+    if (!(Word.charAt(0) === FourbyFourMat[CurrIndex[0]][CurrIndex[1]])) {
+        return false;
     } else {
             return StepDirection([0, -1], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([-1, -1], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([-1, 0], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([-1, 1], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([0, 1], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([1, 1], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([1, 0], Word, FourbyFourMat, CurrIndex, PrevIndices) || StepDirection([1, -1], Word, FourbyFourMat, CurrIndex, PrevIndices);
     }
@@ -126,11 +129,13 @@ var FindGivenWord = function(Word, FourbyFourMat) {
     for(y = 0; y < 4; y++) {
         for(x = 0; x < 4; x++) {
             console.log('Are we even in the loop?');
-            if (FourbyFourMat[y][x] === Word.charAt[0]) {
+            console.log(Word.charAt(0));
+            console.log(FourbyFourMat[y][x]);
+            if (FourbyFourMat[y][x] === Word.charAt(0)) {
                 console.log("Do we ever get inside here?");
                 // if RecursiveBoggleStep finds the word it'll return true,
                 // Meaning FindGivenWord should also
-                if (RecursiveBoggleStep(Word.substr(1, (Word.length - 1)), FourbyFourMat, [y, x], [])) {
+                if (RecursiveBoggleStep(Word, FourbyFourMat, [y, x], [])) {
                     console.log("in the final recursive check");
                     return true;
                 }

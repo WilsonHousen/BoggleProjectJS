@@ -165,6 +165,10 @@ var FindGivenWord = function(Word, FourbyFourMat) {
 //Ultimate Boggle Solver will log to the console all
 //of the words it found in the Boggle matrix that were
 //in the list of words.
+
+//It does not return anything, but it does print to the console
+//the boggle board it was given, the list of words it was given, 
+//and the words that it finds from the list in the boggle board.
 var UltimateBoggleSolver = function(FourbyFourMat, ListofWords) {
     var FoundWordsArray = [];
     console.log("The initial List of Words is: \n");
@@ -183,7 +187,12 @@ var UltimateBoggleSolver = function(FourbyFourMat, ListofWords) {
     console.log(FoundWordsArray);
 }
 
+
+
 /* TEST SUITE to validate each function */
+
+
+/* 
 
 // CheckRepeats Tests
 //      should be false
@@ -222,6 +231,8 @@ console.log(FindGivenWord('links', [['r', 'r', 'r', 'r'] ,
                                     ['r', 'r', 'r', 'r'] , 
                                     ['r', 'r', 'r', 'r']]));
 
+
+*/
 
 // UltimateBoggleSolver Tests
 //         should return all of the present words

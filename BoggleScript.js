@@ -161,6 +161,35 @@ var FindGivenWord = function(Word, FourbyFourMat) {
     return false;
 }
 
+//taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
+
+// let data = [
+//     ['Title', 'Artist', 'Duration', 'Created'],
+//     ['hello', 'me', '2', '2019'],
+//     ['ola', 'me', '3', '2018'],
+//     ['Bob', 'them', '4.3', '2006']
+//   ];
+  
+//   function getCells(data, type) {
+//     return data.map(cell => `<${type}>${cell}</${type}>`).join('');
+//   }
+  
+//   function createBody(data) {
+//     return data.map(row => `<tr>${getCells(row, 'td')}</tr>`).join('');
+//   }
+  
+//   function createTable(data) {
+//     const [headings, ...rows] = data;
+//     return `
+//       <table>
+//         <thead>${getCells(headings, 'th')}</thead>
+//         <tbody>${createBody(rows)}</tbody>
+//       </table>
+//     `;
+//   }
+  
+//   document.body.insertAdjacentHTML('beforeend', createTable(data));
+
 
 //given a boggle 4x4 matrix of words, and a list of words,
 //Ultimate Boggle Solver will log to the console all

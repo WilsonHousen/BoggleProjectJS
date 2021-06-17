@@ -161,7 +161,7 @@ var FindGivenWord = function(Word, FourbyFourMat) {
     return false;
 }
 
-//taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
+// taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
 
 let data = [
     ['a', 'b', 'c', 'd'] , 
@@ -189,6 +189,7 @@ let data = [
   }
   
   document.body.insertAdjacentHTML('beforeend', createTable(data));
+  // until this html doc insert
 
 
 //given a boggle 4x4 matrix of words, and a list of words,

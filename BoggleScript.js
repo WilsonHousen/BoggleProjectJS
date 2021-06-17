@@ -163,32 +163,32 @@ var FindGivenWord = function(Word, FourbyFourMat) {
 
 //taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
 
-// let data = [
-//     ['Title', 'Artist', 'Duration', 'Created'],
-//     ['hello', 'me', '2', '2019'],
-//     ['ola', 'me', '3', '2018'],
-//     ['Bob', 'them', '4.3', '2006']
-//   ];
+let data = [
+    ['a', 'b', 'c', 'd'] , 
+    ['e', 'f', 'g', 'h'] , 
+    ['i', 'j', 'k', 'l'] , 
+    ['m', 'n', 'o', 'p']
+];
   
-//   function getCells(data, type) {
-//     return data.map(cell => `<${type}>${cell}</${type}>`).join('');
-//   }
+  function getCells(data, type) {
+    return data.map(cell => `<${type}>${cell}</${type}>`).join('');
+  }
   
-//   function createBody(data) {
-//     return data.map(row => `<tr>${getCells(row, 'td')}</tr>`).join('');
-//   }
+  function createBody(data) {
+    return data.map(row => `<tr>${getCells(row, 'td')}</tr>`).join('');
+  }
   
-//   function createTable(data) {
-//     const [headings, ...rows] = data;
-//     return `
-//       <table>
-//         <thead>${getCells(headings, 'th')}</thead>
-//         <tbody>${createBody(rows)}</tbody>
-//       </table>
-//     `;
-//   }
+  function createTable(data) {
+    const [...rows] = data;
+    //  <thead>${getCells(headings, 'th')}</thead> (after <table>)
+    return `
+      <table>
+        <tbody>${createBody(rows)}</tbody>
+      </table>
+    `;
+  }
   
-//   document.body.insertAdjacentHTML('beforeend', createTable(data));
+  document.body.insertAdjacentHTML('beforeend', createTable(data));
 
 
 //given a boggle 4x4 matrix of words, and a list of words,

@@ -163,12 +163,25 @@ var FindGivenWord = function(Word, FourbyFourMat) {
 
 // taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
 
-let data = [
-    ['a', 'b', 'c', 'd'] , 
-    ['e', 'f', 'g', 'h'] , 
-    ['i', 'j', 'k', 'l'] , 
-    ['m', 'n', 'o', 'p']
-];
+function randomChar() {
+    // https://stackoverflow.com/a/40586869
+    return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+function createRandomBoggleTable() {
+    return [
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+    ];
+}
+
+let boggleTable = createRandomBoggleTable();
+
+  function createList(data) {
+      return data.map(row => `${getCells(row, 'div')}`).join('');
+  }
   
   function getCells(data, type) {
     return data.map(cell => `<${type}>${cell}</${type}>`).join('');
@@ -188,34 +201,45 @@ let data = [
     `;
   }
   
-  document.body.insertAdjacentHTML('beforeend', createTable(data));
+  // document.body.insertAdjacentHTML('beforeend', createTable(boggleTable));
   // until this html doc insert
 
 
-//given a boggle 4x4 matrix of words, and a list of words,
-//Ultimate Boggle Solver will log to the console all
-//of the words it found in the Boggle matrix that were
-//in the list of words.
-
-//It does not return anything, but it does print to the console
-//the boggle board it was given, the list of words it was given, 
-//and the words that it finds from the list in the boggle board.
-var UltimateBoggleSolver = function(FourbyFourMat, ListofWords) {
+// given a boggle 4x4 matrix of words, and a list of words,
+// Ultimate Boggle Solver will log to the console all
+// of the words it found in the Boggle matrix that were
+// in the list of words.
+// will only print out words if the verbose tag is true.
+// will return the list of found words.
+var UltimateBoggleSolver = function(FourbyFourMat, ListofWords, VerboseTag) {
     var FoundWordsArray = [];
-    console.log("The initial List of Words is: \n");
-    console.log(ListofWords);
-    console.log("The boggle board is: \n");
-    console.log(FourbyFourMat[0]);
-    console.log(FourbyFourMat[1]);
-    console.log(FourbyFourMat[2]);
-    console.log(FourbyFourMat[3]);
     for (let i = 0; i < ListofWords.length; i++) {
         if(FindGivenWord(ListofWords[i], FourbyFourMat)) {
             FoundWordsArray.push(ListofWords[i]);
         }
     }
-    console.log("The present words are: \n");
-    console.log(FoundWordsArray);
+    if (VerboseTag) {
+        console.log("The initial List of Words is: \n");
+        console.log(ListofWords);
+        console.log("The boggle board is: \n");
+        console.log(FourbyFourMat[0]);
+        console.log(FourbyFourMat[1]);
+        console.log(FourbyFourMat[2]);
+        console.log(FourbyFourMat[3]);
+        console.log("The present words are: \n");
+        console.log(FoundWordsArray);
+    }
+}
+
+
+function solveBoggle(FourbyFourMat, ListofWords) {
+    let foundWords = UltimateBoggleSolver(FourbyFourMat, ListofWords);
+    document.body.insertAdjacentHTML('beforeend', '<div>List of Found Words</div');
+    document.body.insertAdjacentHTML('beforeend', createList(foundWords));
+}
+
+function makeNewBoggleTable() {
+    document.body.insertAdjacentHTML('beforeend', createTable(createRandomBoggleTable()));
 }
 
 

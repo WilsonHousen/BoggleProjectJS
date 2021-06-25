@@ -161,50 +161,6 @@ var FindGivenWord = function(Word, FourbyFourMat) {
     return false;
 }
 
-// taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
-
-function randomChar() {
-    // https://stackoverflow.com/a/40586869
-    return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-}
-
-function createRandomBoggleTable() {
-    return [
-        [randomChar(), randomChar(), randomChar(), randomChar()],
-        [randomChar(), randomChar(), randomChar(), randomChar()],
-        [randomChar(), randomChar(), randomChar(), randomChar()],
-        [randomChar(), randomChar(), randomChar(), randomChar()],
-    ];
-}
-
-let boggleTable = createRandomBoggleTable();
-
-  function createList(data) {
-      return data.map(row => `${getCells(row, 'div')}`).join('');
-  }
-  
-  function getCells(data, type) {
-    return data.map(cell => `<${type}>${cell}</${type}>`).join('');
-  }
-  
-  function createBody(data) {
-    return data.map(row => `<tr>${getCells(row, 'td')}</tr>`).join('');
-  }
-  
-  function createTable(data) {
-    const [...rows] = data;
-    //  <thead>${getCells(headings, 'th')}</thead> (after <table>)
-    return `
-      <table id="BoggleBoard">
-        <tbody>${createBody(rows)}</tbody>
-      </table>
-    `;
-  }
-  
-  // document.body.insertAdjacentHTML('beforeend', createTable(boggleTable));
-  // until this html doc insert
-
-
 // given a boggle 4x4 matrix of words, and a list of words,
 // Ultimate Boggle Solver will log to the console all
 // of the words it found in the Boggle matrix that were
@@ -231,9 +187,54 @@ var UltimateBoggleSolver = function(FourbyFourMat, ListofWords, VerboseTag) {
     }
 }
 
+// taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
+function randomChar() {
+    // https://stackoverflow.com/a/40586869
+    return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
 
-function solveBoggle(FourbyFourMat, ListofWords) {
-    let foundWords = UltimateBoggleSolver(FourbyFourMat, ListofWords);
+function createRandomBoggleTable() {
+    return [
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+        [randomChar(), randomChar(), randomChar(), randomChar()],
+    ];
+}
+
+  function createList(data) {
+      return data.map(row => `${getCells(row, 'div')}`).join('');
+  }
+  
+  function getCells(data, type) {
+    return data.map(cell => `<${type}>${cell}</${type}>`).join('');
+  }
+  
+  function createBody(data) {
+    return data.map(row => `<tr>${getCells(row, 'td')}</tr>`).join('');
+  }
+  
+  function createTable(data) {
+    const [...rows] = data;
+    //  <thead>${getCells(headings, 'th')}</thead> (after <table>)
+    return `
+      <table id="BoggleBoard">
+        <tbody>${createBody(rows)}</tbody>
+      </table>
+    `;
+  }
+  // until this point
+
+function solveBoggle(ListofWords) {
+    boggleCSV = document.getElementById("BoggleBoard").dataset.table;
+    boggleArr = boggleCSV.split(",");
+    let newBoard = new Array(new Array(4), new Array(4), new Array(4), new Array(4));
+    for (x = 0; x <= 3; x++) {
+        for (y = 0; y <= 3; y++) {
+            newBoard[x][y] = boggleArr[x+y];
+        }
+    }
+    let foundWords = UltimateBoggleSolver(newBoard, ListofWords, false);
     document.body.insertAdjacentHTML('beforeend', '<div>List of Found Words</div');
     document.body.insertAdjacentHTML('beforeend', createList(foundWords));
 }
@@ -244,9 +245,10 @@ function changeTable(str) {
  }
 
 function makeNewBoggleTable() {
-   changeTable(createTable(createRandomBoggleTable()));
+    let newBoard = createRandomBoggleTable(); 
+    changeTable(createTable(newBoard));
+    document.getElementById("BoggleBoard").dataset.table = newBoard;
 }
-
 
 /* TEST SUITE to validate each function */
 
@@ -299,10 +301,10 @@ UltimateBoggleSolver([['W', 'o', 'r', 'd'] ,
                       ['r', 'r', 'F', 'T'] , 
                       ['e', 'o', 'r', 'w'] , 
                       ['u', 'r', 'e', 'o']], 
-                    ['WordOne', 'WordTwo', 'WordThree', 'WordFour']);
+                    ['WordOne', 'WordTwo', 'WordThree', 'WordFour'], true);
 //         should return no words present
 UltimateBoggleSolver([['W', 'o', 'e', 'v'] , 
                       ['r', 'r', 'a', 'a'] , 
                       ['e', 'o', 'r', 'w'] , 
                       ['u', 'r', 'r', 'o']], 
-                    ['WordOne', 'WordTwo', 'WordThree', 'WordFour']);
+                    ['WordOne', 'WordTwo', 'WordThree', 'WordFour'], true);

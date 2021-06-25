@@ -195,7 +195,7 @@ let boggleTable = createRandomBoggleTable();
     const [...rows] = data;
     //  <thead>${getCells(headings, 'th')}</thead> (after <table>)
     return `
-      <table>
+      <table id="BoggleBoard">
         <tbody>${createBody(rows)}</tbody>
       </table>
     `;
@@ -238,10 +238,14 @@ function solveBoggle(FourbyFourMat, ListofWords) {
     document.body.insertAdjacentHTML('beforeend', createList(foundWords));
 }
 
-function makeNewBoggleTable() {
-    document.body.insertAdjacentHTML('beforeend', createTable(createRandomBoggleTable()));
-}
+// http://www.nullskull.com/q/10197198/how-to-replace-a-table-by-another-table-in-html.aspx
+function changeTable(str) {
+    document.getElementById("TableDiv").innerHTML = str;
+ }
 
+function makeNewBoggleTable() {
+   changeTable(createTable(createRandomBoggleTable()));
+}
 
 
 /* TEST SUITE to validate each function */

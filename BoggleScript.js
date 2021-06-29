@@ -1,4 +1,9 @@
+// get node
+// import fs
 
+// fs words.txt from https://github.com/dwyl/english-words into program
+// compare against words.txt when solving
+// if that's too slow or bad, find a smaller list of words
 
 var CheckRepeats = function(CurrentIndex, ArrayOfIndices) {
     // go through each element of the array, see if they are 

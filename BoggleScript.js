@@ -1,9 +1,6 @@
-// get node
-// import fs
-
-// fs words.txt from https://github.com/dwyl/english-words into program or something else
 // compare against words.txt when solving
 // if that's too slow or bad, find a smaller list of words
+fs = require('fs');
 
 var CheckRepeats = function(CurrentIndex, ArrayOfIndices) {
     // go through each element of the array, see if they are 
@@ -230,15 +227,18 @@ function createRandomBoggleTable() {
   }
   // until this point
 
-function solveBoggle(ListofWords) {
-    boggleCSV = document.getElementById("BoggleBoard").dataset.table;
-    boggleArr = boggleCSV.split(",");
+function solveBoggle() {
+    boggleCSV = document.getElementById('BoggleBoard').dataset.table;
+    boggleArr = boggleCSV.split(',');
     let newBoard = new Array(new Array(4), new Array(4), new Array(4), new Array(4));
     for (x = 0; x <= 3; x++) {
         for (y = 0; y <= 3; y++) {
             newBoard[x][y] = boggleArr[x+y];
         }
     }
+    // following two lines: extensive testing! ellipsis symbol, fs, words.txt, buffer class, all of it!
+    let wordBank = fs.readFile('words.txt');
+    let ListofWords = [...wordBank];
     let foundWords = UltimateBoggleSolver(newBoard, ListofWords, false);
     document.body.insertAdjacentHTML('beforeend', '<div>List of Found Words</div');
     document.body.insertAdjacentHTML('beforeend', createList(foundWords));

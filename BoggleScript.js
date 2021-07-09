@@ -1,5 +1,10 @@
-// compare against words.txt when solving
-// if that's too slow or bad, find a smaller list of words
+/*TODO Board*/ 
+
+// this works, but require doesn't work client side
+// get express.js, make an app.js file, move some of the bogglescript into the app.js file
+// decide what part of the app moves and what stays (does the boggle logic stay? does the data gen stuff?)
+
+/*****************/
 fs = require('fs');
 
 var CheckRepeats = function(CurrentIndex, ArrayOfIndices) {

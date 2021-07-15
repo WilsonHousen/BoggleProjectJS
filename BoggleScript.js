@@ -5,7 +5,6 @@
 // decide what part of the app moves and what stays (does the boggle logic stay? does the data gen stuff?)
 
 /*****************/
-fs = require('fs');
 
 var CheckRepeats = function(CurrentIndex, ArrayOfIndices) {
     // go through each element of the array, see if they are 
@@ -174,25 +173,17 @@ var FindGivenWord = function(Word, FourbyFourMat) {
 // in the list of words.
 // will only print out words if the verbose tag is true.
 // will return the list of found words.
-var UltimateBoggleSolver = function(FourbyFourMat, ListofWords, VerboseTag) {
+var UltimateBoggleSolver = function(FourbyFourMat, ListofWords, VerboseTag) { // slowly removing verbose and basic console testing
     var FoundWordsArray = [];
     for (let i = 0; i < ListofWords.length; i++) {
         if(FindGivenWord(ListofWords[i], FourbyFourMat)) {
             FoundWordsArray.push(ListofWords[i]);
         }
     }
-    if (VerboseTag) {
-        console.log("The initial List of Words is: \n");
-        console.log(ListofWords);
-        console.log("The boggle board is: \n");
-        console.log(FourbyFourMat[0]);
-        console.log(FourbyFourMat[1]);
-        console.log(FourbyFourMat[2]);
-        console.log(FourbyFourMat[3]);
-        console.log("The present words are: \n");
-        console.log(FoundWordsArray);
-    }
 }
+
+// ^ everything above should go in an app.js file with express
+// v everything below should stay in a script file, maybs modified to have templating and do html stuff
 
 // taken from this stackoverflow answer: https://stackoverflow.com/a/52896796
 function randomChar() {
@@ -232,6 +223,8 @@ function createRandomBoggleTable() {
   }
   // until this point
 
+fs = require('fs');
+
 function solveBoggle() {
     boggleCSV = document.getElementById('BoggleBoard').dataset.table;
     boggleArr = boggleCSV.split(',');
@@ -260,61 +253,3 @@ function makeNewBoggleTable() {
     document.getElementById("BoggleBoard").dataset.table = newBoard;
 }
 
-/* TEST SUITE to validate each function */
-
-
-/* 
-
-// CheckRepeats Tests
-//      should be false
-console.log(CheckRepeats([0,0], []));
-//      should be true
-console.log(CheckRepeats([1,1], [[1,1]]));
-//      should be true
-console.log(CheckRepeats([1,2], [[1,0], [1,2], [0,0]]));
-
-// RecursiveBoggleStep Tests
-//          should return false
-console.log(RecursiveBoggleStep("links", [['r', 'r', 'r', 'r'] , 
-                                          ['r', 'r', 'r', 'r'] , 
-                                          ['r', 'r', 'r', 'r'] , 
-                                          ['r', 'r', 'r', 'r']], [2, 3], []));
-//          should return false
-console.log(RecursiveBoggleStep('links', [['r', 'r', 'r', 'r'] , 
-                                          ['r', 'r', 'n', 'r'] , 
-                                          ['r', 'r', 'i', 'l'] , 
-                                          ['r', 'r', 'r', 'r']], [2, 3], []));
-//          should return true
-console.log(RecursiveBoggleStep('links', [['r', 's', 'k', 'r'] , 
-                                          ['r', 'r', 'n', 'r'] , 
-                                          ['r', 'r', 'i', 'l'] , 
-                                          ['r', 'r', 'r', 'r']], [2, 3], []));
-
-// FindGivenWord Tests
-//     should return true
-console.log(FindGivenWord('links', [['r', 's', 'k', 'r'] , 
-                                    ['r', 'r', 'n', 'r'] , 
-                                    ['r', 'r', 'i', 'l'] , 
-                                    ['r', 'r', 'r', 'r']]));
-//     should return false
-console.log(FindGivenWord('links', [['r', 'r', 'r', 'r'] , 
-                                    ['r', 'r', 'r', 'r'] , 
-                                    ['r', 'r', 'r', 'r'] , 
-                                    ['r', 'r', 'r', 'r']]));
-
-
-*/
-
-// UltimateBoggleSolver Tests
-//         should return all of the present words
-UltimateBoggleSolver([['W', 'o', 'r', 'd'] , 
-                      ['r', 'r', 'F', 'T'] , 
-                      ['e', 'o', 'r', 'w'] , 
-                      ['u', 'r', 'e', 'o']], 
-                    ['WordOne', 'WordTwo', 'WordThree', 'WordFour'], true);
-//         should return no words present
-UltimateBoggleSolver([['W', 'o', 'e', 'v'] , 
-                      ['r', 'r', 'a', 'a'] , 
-                      ['e', 'o', 'r', 'w'] , 
-                      ['u', 'r', 'r', 'o']], 
-                    ['WordOne', 'WordTwo', 'WordThree', 'WordFour'], true);
